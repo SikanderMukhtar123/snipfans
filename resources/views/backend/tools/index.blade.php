@@ -41,11 +41,6 @@
                                                             Edit
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="{{ route('tool.edit', $list->id) }}" class="dropdown-item">
-                                                            Delete
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
