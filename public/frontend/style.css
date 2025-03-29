@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Quicksand, sans-serif;
+
+}
+
+
+/* my green color dynamic */
+
+:root {
+    --bs-color-mygreen: #00b12b;
+}
+
+.toolcard {
+    background-color: #00b12b;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.mygreen {
+    color: var(--bs-color-mygreen);
+}
+
+/* navbar start */
+.navbar {
+    background-color: #333;
+    padding: 12px 0;
+}
+
+
+#videoPlayer {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+
+
+#download-btns {
+    display: flex;
+    justify-content: center;
+}
+
+/* Loader Css End */

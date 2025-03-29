@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect to the public folder
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Handle Laravel's routing
+    RewriteRule ^(.*)$ public/index.php [L]
+    
+    # Prevent directory browsing
+    Options -Indexes
+
+    # Disable .env file access
+    <Files .env>
+        Order allow,deny
+        Deny from all
+    </Files>
+
+    # Prevent access to sensitive files
+    <FilesMatch "(^\.|\.env|\.git)">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+
+    # Set proper mime types
+    AddType application/x-httpd-php .php
+
+</IfModule>
