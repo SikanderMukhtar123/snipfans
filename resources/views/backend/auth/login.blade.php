@@ -9,9 +9,34 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
+<style>
+    .card {
+        width: 35%;
+        margin-top: 5%;
+    }
+
+    @media (max-width:375px) {
+        .card {
+            width: 90%;
+        }
+    }
+
+    @media (min-width:375px) and (max-width: 425px) {
+        .card {
+            width: 90%;
+        }
+    }
+
+    @media (min-width:425px) and (max-width: 768px) {
+        .card {
+            width: 90%;
+        }
+    }
+</style>
+
 <body class="bg-light">
 
-    <div class="card mx-auto shadow-sm rounded-4 border-0" style="width: 35%; margin-top: 5%;">
+    <div class="card mx-auto shadow-sm rounded-4 border-0">
         <div class="card-header bg-white border-0 text-center">
             <h3 class="fw-bold mt-3">Login</h3>
         </div>
@@ -25,7 +50,7 @@
                         name="email" placeholder="Email" required>
                     <label for="email">Email</label>
                     @error('email')
-                        <div class="text-danger small">{{ $message }}</div>
+                    <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -35,7 +60,7 @@
                         name="password" placeholder="Password" required>
                     <label for="password">Password</label>
                     @error('password')
-                        <div class="text-danger small">{{ $message }}</div>
+                    <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -50,8 +75,8 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
