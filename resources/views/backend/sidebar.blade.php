@@ -107,7 +107,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="" alt="" width="35" height="35" class="rounded-circle">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCaJqEdRntMw1qPg2HdvHmlPdxRCBeRs7qLQ&s" alt="" width="35" height="35" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                             <div class="message-body">
