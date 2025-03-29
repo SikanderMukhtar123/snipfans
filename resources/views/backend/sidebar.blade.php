@@ -58,8 +58,8 @@
                     <span class="hide-menu">Home</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ request()->routeIs('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin') }}"
-                        aria-expanded="false">
+                    <a class="sidebar-link {{ request()->routeIs('admin/dashboard') ? 'active' : '' }}"
+                        href="{{ route('admin') }}" aria-expanded="false">
                         <iconify-icon icon="solar:widget-add-line-duotone"></iconify-icon>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -71,7 +71,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ request()->routeIs('admin/tools') ? 'active' : '' }}"
                         href="{{ route('tools') }}" aria-expanded="false">
-                        <iconify-icon icon="solar:widget-add-line-duotone"></iconify-icon>
+                        <iconify-icon icon="mdi:download" style="font-size: 24px;"></iconify-icon>
                         <span class="hide-menu">Tools</span>
                     </a>
                 </li>
@@ -107,7 +107,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCaJqEdRntMw1qPg2HdvHmlPdxRCBeRs7qLQ&s" alt="" width="35" height="35" class="rounded-circle">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCaJqEdRntMw1qPg2HdvHmlPdxRCBeRs7qLQ&s"
+                                alt="" width="35" height="35" class="rounded-circle">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                             <div class="message-body">
