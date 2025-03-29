@@ -1,6 +1,6 @@
 @extends('frontend.layout')
 @section('content')
-    <h1 class="category_name font-weight-bold text-center px-md-4 mt-4">Downlaoding Tools</h1>
+    <h1 class="category_name font-weight-bold text-center px-md-4 mt-4">Downlaodings Tools</h1>
 
     <div class="container mt-5 mb-5">
         @foreach ($tools as $list)
