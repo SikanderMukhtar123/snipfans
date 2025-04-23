@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ToolsController;
 use App\Http\Controllers\frontend\AuthController;
 use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\facebookVideoController;
 use App\Http\Controllers\frontend\YtDownlaoderController;
 use App\Models\tools;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ route::get('/youtube-video-downloader', [YtDownlaoderController::class, 'index']
 route::post('/youtube-video-downloader', [YtDownlaoderController::class, 'download'])->name('youtube.req');
 // route::post('/youtube-video-downloader/views', [YtDownlaoderController::class, 'views'])->name('youtube.views');
 
+
+
+// faebook
+route::get('/facebook-video-downloader', [facebookVideoController::class, 'index'])->name('fb');
+route::post('/facebook-video-downloader', [facebookVideoController::class, 'Video'])->name('fb.video');
+route::post('/facebook-video-downloader/views', [facebookVideoController::class, 'views'])->name('fb.views');
 
 
 

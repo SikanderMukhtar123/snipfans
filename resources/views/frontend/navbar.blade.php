@@ -19,7 +19,7 @@
 
     .ToolCard img {
         max-width: 40%;
-        height: auto;
+        height: 55px;
     }
 
 
