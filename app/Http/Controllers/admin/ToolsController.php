@@ -27,6 +27,7 @@ class ToolsController extends Controller
         $add->tool_name = $req->tool_name;
         $add->slug = $req->slug;
         $add->status = $req->status;
+        $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;
         $add->save();
 
@@ -48,6 +49,7 @@ class ToolsController extends Controller
         $add->tool_name = $req->tool_name;
         $add->slug = $req->slug;
         $add->status = $req->status;
+        $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;
         $add->update();
 

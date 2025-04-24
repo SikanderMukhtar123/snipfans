@@ -16,27 +16,29 @@ class facebookVideoController extends Controller
     public function video(Request $req)
     {
         $videoUrl = $req->input('videoUrl');
-
+    
         $response = Http::withHeaders([
-            'x-rapidapi-host' => 'facebook-videos-reels-downloader.p.rapidapi.com',
+            'Content-Type' => 'application/json',
+            'x-rapidapi-host' => 'free-facebook-downloader.p.rapidapi.com',
             'x-rapidapi-key' => 'd175f87ac7msh9ad456be4af15b1p10b496jsn45e43437f091',
-        ])->get('https://facebook-videos-reels-downloader.p.rapidapi.com/get-video-info', [
-            'url' => $videoUrl,
+        ])->post('https://free-facebook-downloader.p.rapidapi.com/external-api/facebook-video-downloader', [
+            'url' => $videoUrl
         ]);
-
+    
         $data = $response->json();
-
-        if (isset($data['video'])) {
+    
+        if (isset($data['success']) && $data['success'] === true) {
             return response()->json([
-                'video_id' => $data['video']['video_id'],
-                'thumbnail' => $data['video']['thumbnail_url'],
-                'sd_video_url' => $data['video']['sd_video_url'] ?? null,
-                'hd_video_url' => $data['video']['hd_video_url'] ?? null,
+                'video_id' => $data['id'] ?? null,
+                'title' => $data['title'] ?? null,
+                'sd_video_url' => $data['links']['Download Low Quality'] ?? null,
+                'hd_video_url' => $data['links']['Download High Quality'] ?? null,
             ]);
         } else {
-            return response()->json(['error' => 'Video URL not found or not supported.'], 404);
+            return response()->json([
+                'error' => 'Video could not be retrieved. Please check the URL or try again later.'
+            ], 404);
         }
-        
     }
 
 

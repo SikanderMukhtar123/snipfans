@@ -14,6 +14,7 @@
                                     <th>Tool Name</th>
                                     <th>Slug</th>
                                     <th>Status</th>
+                                    <th>M/RQ</th>
                                     <th>Views</th>
                                     <th>Order </th>
                                     <th>Action</th>
@@ -26,6 +27,7 @@
                                         <td>{{ $list->tool_name }}</td>
                                         <td>{{ $list->slug }}</td>
                                         <td>{{ $list->status == 1 ? 'Active' : 'inactive' }}</td>
+                                        <td>{{ $list->monthly_limit }}</td>
                                         <td>{{ $list->view ?? '0' }}</td>
                                         <td>{{ $list->order }}</td>
                                         <td>
