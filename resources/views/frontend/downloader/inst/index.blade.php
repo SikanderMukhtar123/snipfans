@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <style>
     .download-box {
         list-style-type: none;
@@ -11,12 +9,10 @@
         margin: 0;
     }
 
-    /* Container for each download item */
     .download-items {
         margin-bottom: 20px;
     }
 
-    /* Thumbnail styling */
     .download-items__thumb {
         position: relative;
         display: inline-block;
@@ -30,7 +26,6 @@
         transition: transform 0.3s;
     }
 
-    /* Format icon overlay */
     .format-icon {
         position: absolute;
         bottom: 10px;
@@ -41,7 +36,6 @@
         color: white;
     }
 
-    /* Download button styling */
     .download-items__btn a {
         display: block;
         text-align: center;
@@ -51,12 +45,11 @@
         transition: background-color 0.3s;
     }
 
-    /* Button specific styles */
     .dl-thumb {
         margin-top: 10px;
     }
 
-    .download-items__btn{
+    .download-items__btn {
         width: 20%;
         margin-left: 40%;
     }
@@ -75,7 +68,6 @@
     }
 
     .abutton.is-success.is-fullwidth.btn-premium.mt-3 {
-        /* background-color: #0275d8; */
         background-color: #198754;
         color: white;
     }
@@ -88,14 +80,14 @@
         display: none;
     }
 </style>
+
 <div class="container">
     <h2 class="fw-bold text-center toolHeading">Instagram Video Downloader</h2>
-
     <div class="card border-0 rounded mt-3">
         <div class="card-body text-white toolcard">
             <div class="input-group">
                 <input type="text" name="url" id="url" class="form-control p-2"
-                    placeholder="Enter Instagram Reel URL (e.g., https://www.instagram.com/reel/xyz123)" required>
+                    placeholder="Please Enter the Instagram video URL" required>
                 <button class="btn text-dark bg-light fw-bold" id="Clear">Clear</button>
             </div>
         </div>
@@ -107,7 +99,9 @@
         <div class="col-md-12">
             <div class="card mt-3 mb-5 border-2 rounded VideoPlayerCard">
                 <div class="card-body bg-white text-center">
-                    <div id="ImgThmB"></div>
+                    <div id="ImgThmB">
+                        <video src="" id="videoPlayerDemo" style="width: 60%; height : 400px;" class="rounded" controls></video>
+                    </div>
                     <div class="mt-3">
                         <a href="#" class="btn btn-success text-white d-none withoutWaterMark"
                             id="downloadWithoutWatermark" download>Without Watermark</a>
@@ -118,12 +112,16 @@
                         <a href="#" class="btn btn-success text-white d-none Hd" id="downloadHD" download>Download
                             HD</a>
                     </div>
+
+                    <!-- Error message -->
+                    <div id="error-message" class="text-danger mt-3"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -131,12 +129,22 @@
         $('#url').on('input', function () {
             let videoUrl = $(this).val().trim();
 
-            if (!videoUrl) return;
+            if (videoUrl.length === 0) return;
 
-            // Show loading state if necessary (you can add a loading spinner if desired)
+            // Reset UI
+            $('#videoPlayer').attr('src', '').addClass('d-none');
+            $('#error-message').text('');
+            $('#loading').remove();
+            $('#videoPlayerDemo').remove();
 
-            // Remove previous error messages
-            $('#error-message').remove();
+            // Show loading spinner
+            $('#ImgThmB').html(`
+                <p id="loading">Fetching Video...
+                    <div class="spinner-border text-primary loading" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </p>
+            `);
 
             $.ajax({
                 url: '{{ route('inst.req') }}',
@@ -146,22 +154,30 @@
                     url: videoUrl
                 },
                 success: function (data) {
+                    $('#loading').remove();
+                    $('#videoPlayerDemo').addClass('d-none');
+
+
                     var html = $(data.data); 
                     $('#ImgThmB').html(html);
-                    
+                   
                 },
                 error: function () {
-                    $('#error-message').remove();
-                    // $('#videoPlayer').after(`
-                    //     <p id="error-message" class="text-danger mt-2">
-                    //         Something went wrong. Please try again.
-                    //     </p>
-                    // `);
+                    $('#loading').remove();
+                    $('#videoPlayerDemo').remove();
+                    $('#error-message').text("Something went wrong. Please try again.");
                 }
             });
         });
+
+        $('#Clear').click(function () {
+            $('#url').val('');
+            $('#videoPlayerDemo').removeClass('d-none');
+            $('#ImgThmB').html('');
+            $('#error-message').text('');
+            $('#loading').remove();
+        });
     });
 </script>
-
 
 @endsection
