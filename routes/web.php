@@ -45,27 +45,8 @@ route::post('/facebook-video-downloader/views', [facebookVideoController::class,
 route::get('/instagram-video-downloader', [InstagramController::class, 'index'])->name('inst');
 route::post('/instagram-video-downloader', [InstagramController::class, 'Video'])->name('inst.req');
 route::get('ins', [InstagramController::class, 'testConnection'])->name('inst.ig');
-route::post('/instagram-video-downloader/views', [facebookVideoController::class, 'views'])->name('fb.views');
-Route::get('/proxy-video', function (\Illuminate\Http\Request $request) {
-    $url = $request->query('url');
+route::post('/instagram-video-downloader/views', [InstagramController::class, 'views'])->name('in.views');
 
-    if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
-        return response('Invalid URL', 400);
-    }
-
-    try {
-        $videoStream = Http::withHeaders([
-            'User-Agent' => 'Mozilla/5.0', // Helps bypass CDN restrictions
-        ])->get($url);
-
-        return Response::make($videoStream->body(), 200, [
-            'Content-Type' => 'video/mp4',
-            'Content-Disposition' => 'inline; filename="reel.mp4"',
-        ]);
-    } catch (\Exception $e) {
-        return response('Unable to fetch video', 500);
-    }
-});
 
 
 

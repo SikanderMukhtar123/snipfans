@@ -105,9 +105,8 @@
             margin-left: 33%;
         }
 
-        
-    }
 
+    }
 </style>
 
 <div class="container">
@@ -208,6 +207,26 @@
             $('#loading').remove();
         });
     });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+            $.ajax({
+                url: '{{ route('in.views') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    view: 1,
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        });
 </script>
 
 @endsection

@@ -57,40 +57,15 @@ class InstagramController extends Controller
         return response()->json(['success' => false]);
     }
 
+    public function views(Request $request)
+    {
+        $tools = tools::where('slug', '/instagram-video-downloader')->first();
+        $tools->view = $tools->view + 1;
+        $tools->save(); 
 
-
-    // public function Video(Request $req)
-    // {
-    //     $reelUrl = $req->input('url');
-
-    //     if (!$reelUrl) {
-    //         return response()->json(['error' => 'Reel URL is required'], 400);
-    //     }
-
-    //     $response = Http::withHeaders([
-    //         'x-rapidapi-host' => 'instagram-social-api.p.rapidapi.com',
-    //         'x-rapidapi-key' => 'd175f87ac7msh9ad456be4af15b1p10b496jsn45e43437f091',
-    //     ])->get('https://instagram-social-api.p.rapidapi.com/v1/reels', [
-    //         'username_or_id_or_url' => 'https://www.instagram.com/reel/DFXsaZKvAwK',
-    //     ]);
-
-    //     $data = $response->json();
-        
-    //     if (!isset($data['data']['items'][0]['video_url'])) {
-    //         return response()->json(['error' => 'Unable to fetch reel data.'], 500);
-    //     }
-
-    //     $reel = $data['data']['items'][0];
-    //     // view_count
-
-    //     return response()->json([
-    //         'title' => $reel['caption'] ?? 'Instagram Reel', // caption is null in your response
-    //         'video_url' => $reel['video_url'] ?? null, // this exists and is present
-    //         'author' => $reel['user']['username'] ?? 'Unknown', // "reel" is the username
-    //         'published_at' => $reel['taken_at_date'] ?? null, // formatted ISO timestamp exists
-    //         'likes' => $reel['like_count'] ?? 0, // 23
-    //         'comments' => $reel['comment_count'] ?? 0, // 2
-    //     ]);
-    // }
-    
+        return response()->json([
+            'views' => $tools->view
+        ]);
+    }
+  
 }
