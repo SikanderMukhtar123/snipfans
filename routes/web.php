@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\ToolsController;
+use App\Http\Controllers\admin\SnapchatController;
 use App\Http\Controllers\frontend\AuthController;
 use App\Http\Controllers\frontend\FrontendController;
 use App\Http\Controllers\frontend\InstagramController;
@@ -46,6 +47,15 @@ route::get('/instagram-video-downloader', [InstagramController::class, 'index'])
 route::post('/instagram-video-downloader', [InstagramController::class, 'Video'])->name('inst.req');
 route::get('ins', [InstagramController::class, 'testConnection'])->name('inst.ig');
 route::post('/instagram-video-downloader/views', [InstagramController::class, 'views'])->name('in.views');
+
+
+// Snap Chat
+
+route::get('/snapchat-video-downloader', [SnapchatController::class, 'index'])->name('snap');
+route::post('/snapchat-video-downloader', [SnapchatController::class, 'Video'])->name('snap.req');
+route::get('ins', [InstagramController::class, 'testConnection'])->name('inst.ig');
+route::post('/instagram-video-downloader/views', [InstagramController::class, 'views'])->name('in.views');
+
 
 
 
