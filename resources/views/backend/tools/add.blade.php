@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Add New Tool</h5>
-                    <form action="{{ route('tool.save') }}" method="post">
+                    <form action="{{ route('tool.save') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -22,6 +22,9 @@
                                 </select>
                                 <label for="">Order</label>
                                 <input type="number" class="form-control" name="order" required>
+
+                                <label for="">Tool IMG</label>
+                                <input type="file" class="form-control mb-3" name="tool_img" required>
 
                                 <button type="submit" class="btn btn-success btn-sm mt-3">Save</button>
                             </div>

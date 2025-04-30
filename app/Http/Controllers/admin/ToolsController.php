@@ -22,19 +22,29 @@ class ToolsController extends Controller
 
     public function save(Request $req)
     {
-
         $add = new tools();
         $add->tool_name = $req->tool_name;
         $add->slug = $req->slug;
         $add->status = $req->status;
         $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;
+    
+        // Handle Image Upload
+        if ($req->hasFile('tool_img')) {
+            $image = $req->file('tool_img');
+            $uniqueName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('assets/dashboard_assets/images/tools');
+            $image->move($destinationPath, $uniqueName);
+    
+            // Save filename to database
+            $add->img = $uniqueName;
+        }
+    
         $add->save();
-
-
-        return back()->with('success', 'Tool Added !');
-
+    
+        return back()->with('success', 'Tool Added!');
     }
+    
 
     public function edit($id)
     {
