@@ -5,7 +5,7 @@
 <div class="container mt-5 mb-5">
     <div class="row">
         @foreach ($tools as $list)
-        <div class="col-md-3">
+        <div class="col-md-3 mb-4">
             <div class="card shadow-sm border-0 rounded-3 overflow-hidden ToolCard">
                 <div class="card-body bg-white text-center p-4">
                     <a href="{{ url($list->slug) }}" class="text-decoration-none text-dark">

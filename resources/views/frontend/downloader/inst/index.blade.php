@@ -79,6 +79,35 @@
     .back-home {
         display: none;
     }
+
+    @media screen and (max-width: 375px) {
+        .download-items__btn {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .download-items__thumb img {
+            height: auto;
+        }
+    }
+
+
+    @media screen and (min-width: 375px) and (max-width: 475px) {
+        .download-items__btn {
+            width: 100%;
+            margin-left: 0%;
+        }
+    }
+
+    @media screen and (min-width: 475px) and (max-width: 768px) {
+        .download-items__btn {
+            width: 35%;
+            margin-left: 33%;
+        }
+
+        
+    }
+
 </style>
 
 <div class="container">
@@ -100,7 +129,8 @@
             <div class="card mt-3 mb-5 border-2 rounded VideoPlayerCard">
                 <div class="card-body bg-white text-center">
                     <div id="ImgThmB">
-                        <video src="" id="videoPlayerDemo" style="width: 60%; height : 400px;" class="rounded" controls></video>
+                        <video src="" id="videoPlayerDemo" style="width: 60%; height : 400px;" class="rounded"
+                            controls></video>
                     </div>
                     <div class="mt-3">
                         <a href="#" class="btn btn-success text-white d-none withoutWaterMark"
