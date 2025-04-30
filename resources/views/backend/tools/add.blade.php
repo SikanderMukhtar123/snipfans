@@ -23,7 +23,7 @@
                                 <label for="">Order</label>
                                 <input type="number" class="form-control" name="order" required>
 
-                                <label for="">Tool IMG</label>
+                                <label for="" class="mt-3">Tool IMG</label>
                                 <input type="file" class="form-control mb-3" name="tool_img" required>
 
                                 <button type="submit" class="btn btn-success btn-sm mt-3">Save</button>

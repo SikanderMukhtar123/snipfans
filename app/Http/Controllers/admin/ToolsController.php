@@ -61,9 +61,26 @@ class ToolsController extends Controller
         $add->status = $req->status;
         $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;
+
+        // Handle Image Upload
+        if ($req->hasFile('tool_img')) {
+            // Delete old image if it exists
+            if ($add->tool_img && file_exists(public_path('assets/dashboard_assets/images/tools/' . $add->tool_img))) {
+                unlink(public_path('assets/dashboard_assets/images/tools/' . $add->tool_img));
+            }
+
+            $image = $req->file('tool_img');
+            $uniqueName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('assets/dashboard_assets/images/tools');
+            $image->move($destinationPath, $uniqueName);
+
+            // Save new filename to database
+            $add->img = $uniqueName;
+        }
+
         $add->update();
 
-
-        return back()->with('success', 'Tool updated !');
+        return back()->with('success', 'Tool updated!');
     }
+
 }
