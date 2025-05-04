@@ -80,16 +80,66 @@
     }
   }
 </style>
+<div class="container mt-5 mb-5 text-center">
+  <div class="alert alert-info p-4 rounded shadow-sm hover-shadow">
+    <h4 class="alert-heading text-primary"><span role="img" aria-label="phone">📱</span> Join Our WhatsApp Group!</h4>
+    <p class="lead">Have any questions or suggestions? We’re here to help! Reach out to us anytime. Join our WhatsApp
+      group for instant support, updates, and to share your feedback with us! <span role="img"
+        aria-label="smiling face">😊</span></p>
+    <hr>
+    <p class="mb-0">
+      Stay connected with us! <span role="img" aria-label="thumbs-up">👍</span><br>
+      <a href="https://chat.whatsapp.com/LITzYYbfPYs0v1MxX4WX8w" class="btn btn-success mt-3 custom-btn">
+        <span role="img" aria-label="whatsapp">💬</span> Join WhatsApp Group
+      </a>
+    </p>
+  </div>
+</div>
+
+<!-- Custom CSS for enhanced UI effects -->
+<style>
+  .alert {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .alert:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-btn {
+    font-size: 18px;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #28a745;
+    transform: translateY(-3px);
+  }
+
+  .hover-shadow:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+</style>
+
 
 <footer class="footer">
   <div class="container">
+
+
+
+
+
     <div class="footer-container">
       <div class="footer-section">
         <div class="footer-links">
           <h4>Video Downloading Tools</h4>
           @foreach ($toolsData as $list)
-        <p><a href="{{ url($list->slug) }}">{{ $list->tool_name }}</a></p>
-         @endforeach
+          <p><a href="{{ url($list->slug) }}">{{ $list->tool_name }}</a></p>
+          @endforeach
           <!-- <p><a href="#">Image Resizer</a></p>
           <p><a href="#">Image Encoder</a></p> -->
         </div>
