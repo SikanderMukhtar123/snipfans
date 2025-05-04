@@ -60,7 +60,7 @@
         <div class="card-body text-white toolcard">
             <div class="input-group">
                 <input type="text" name="url" id="url" class="form-control p-2"
-                    placeholder="Please Enter the Instagram video URL" required>
+                    placeholder="Please Enter the SnapChat video URL" required>
                 <button class="btn text-dark bg-light fw-bold" id="Clear">Clear</button>
             </div>
         </div>
