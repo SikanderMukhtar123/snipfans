@@ -1,17 +1,68 @@
 @extends('frontend.layout')
 
 @section('content')
-<div class="container">
-    <h2 class="fw-bold text-center toolHeading">YouTube Video Downloader</h2>
 
+<style>
+    #downloadWithoutWatermark {
+        width: 30%;
+    }
+
+    #thmbId {
+        width: 30%;
+    }
+
+
+    @media screen and (max-width: 375px) {
+
+        #thmbId {
+            width: 70%;
+        }
+
+        #downloadWithoutWatermark {
+            width: 75%;
+        }
+    }
+
+
+    @media screen and (min-width: 375px) and (max-width: 475px) {
+
+
+
+        #thmbId {
+            width: 60%;
+        }
+
+
+        #downloadWithoutWatermark {
+            width: 56%;
+        }
+    }
+
+    @media screen and (min-width: 475px) and (max-width: 768px) {
+
+
+        #thmbId {
+            width: 30%;
+        }
+
+
+        #downloadWithoutWatermark {
+            width: 30%;
+        }
+
+
+    }
+</style>
+
+<div class="container">
+    <h2 class="fw-bold text-center toolHeading">Youtube Video Downloader</h2>
     <div class="card border-0 rounded mt-3">
         <div class="card-body text-white toolcard">
             <div class="input-group">
                 <input type="text" name="url" id="url" class="form-control p-2"
-                    placeholder="Enter YouTube video URL like: https://www.youtube.com/watch?v=abc123" required>
+                    placeholder="Please Enter the Instagram video URL" required>
                 <button class="btn text-dark bg-light fw-bold" id="Clear">Clear</button>
             </div>
-            <div id="error-message" class="text-danger mt-2"></div>
         </div>
     </div>
 </div>
@@ -21,107 +72,144 @@
         <div class="col-md-12">
             <div class="card mt-3 mb-5 border-2 rounded VideoPlayerCard">
                 <div class="card-body bg-white text-center">
-                    <!-- Thumbnail -->
-                    <!-- Video Title -->
-                    <h5 id="videoTitle" class="fw-bold text-dark d-none"></h5>
-                    <!-- Video Player -->
-                    <video src="" id="videoPlayer" class="rounded d-none mt-2" controls></video>
-                    <div class="text-center">
-                        <img id="videoThumbnail" class="rounded d-none mb-2" width="150">
+                    <div id="ImgThmB">
+                        <video src="" id="videoPlayerDemo" style="width: 60%; height : 400px;" class="rounded"
+                            controls></video>
                     </div>
-                    <div id="loading" class="mt-3 d-none">
-                        <p>Fetching Video...
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        </p>
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-success text-white d-none withoutWaterMark"
+                            id="downloadWithoutWatermark" download>Without Watermark</a>
+
+                        <a href="#" class="btn btn-success text-white d-none WaterMark" id="downloadWithWatermark"
+                            download>With Watermark</a>
+
+                        <a href="#" class="btn btn-success text-white d-none Hd" id="downloadHD" download>Download
+                            HD</a>
                     </div>
 
-                    <div class="mt-3">
-                        <a href="" class="btn btn-success text-white d-none" id="downloadWithoutWatermark"
-                            download>Without Watermark</a>
-                        <a href="" class="btn btn-success text-white d-none" id="downloadWithWatermark" download>With
-                            Watermark</a>
-                        <a href="" class="btn btn-success text-white d-none" id="downloadHD" download>Download HD</a>
-                    </div>
+                    <!-- Error message -->
+                    <div id="error-message" class="text-danger mt-3"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-{{-- CSRF token for Ajax --}}
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function () {
-        const csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-        $('#Clear').on('click', function () {
-            $('#url').val('');
-            $('#videoPlayer').attr('src', '').addClass('d-none');
-            $('.btn-success').addClass('d-none');
-            $('#error-message').text('');
-            $('#videoThumbnail').addClass('d-none');
-            $('#videoTitle').addClass('d-none');
-        });
-
         $('#url').on('input', function () {
             let videoUrl = $(this).val().trim();
 
-            $('#error-message').text('');
-            $('#videoPlayer').addClass('d-none').attr('src', '');
-            $('.btn-success').addClass('d-none');
-            $('#loading').addClass('d-none');
-            $('#videoThumbnail').addClass('d-none');
-            $('#videoTitle').addClass('d-none');
+            if (videoUrl.length === 0) return;
 
-            $('#loading').removeClass('d-none');
+            // Reset UI
+            $('#videoPlayer').attr('src', '').addClass('d-none');
+            $('#error-message').text('');
+            $('#loading').remove();
+            $('#videoPlayerDemo').remove();
+
+            // Show loading spinner
+            $('#ImgThmB').html(`
+                <p id="loading">Fetching Video...
+                    <div class="spinner-border text-primary loading" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </p>
+            `);
 
             $.ajax({
-                url: '{{ route("youtube.req") }}',  // Make sure the route is correct
+                url: '{{ route('youtube.req') }}',
                 type: 'POST',
                 data: {
-                    _token: csrfToken,
+                    _token: '{{ csrf_token() }}',
                     url: videoUrl
                 },
                 success: function (data) {
-                    $('#loading').addClass('d-none');
+                    console.log(data);
+                    $('#loading').remove();
+                    $('#videoPlayerDemo').addClass('d-none');
 
-                    if (data.error || (!data.no_watermark && !data.watermark && !data.hd)) {
-                        $('#error-message').text('Invalid URL or video not found. Please check the link.');
-                        return;
-                    }
+                    var url = data.data.medias[0].url;  
 
-                    if (data.title) {
-                        $('#videoTitle').removeClass('d-none').text(data.title);
-                    }
+                    $('#ImgThmB').html( 
+                        '<img id="thmbId" src="' + data.data.thumbnail + '" class="rounded"/>' +
+                        '<div class="mt-3">' +
+                            '<button class="btn btn-success text-white withoutWaterMark" id="downloadWithoutWatermark">Download Video</button>' +
+                        '</div>'
+                    );
 
-                    if (data.thumbnail) {
-                        $('#videoThumbnail').removeClass('d-none').attr('src', data.thumbnail);
-                    }
+                    // When the button is clicked, trigger the download
+                    $('#downloadWithoutWatermark').click(function () {
+                        var $btn = $(this);
+                        
+                        // Store original text and show loading state
+                        var originalText = $btn.html();
+                        $btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Downloading...')
+                            .prop('disabled', true);
 
-                    if (data.no_watermark) {
-                        $('#videoPlayer').removeClass('d-none').attr('src', data.no_watermark);
-                        $('#downloadWithoutWatermark').removeClass('d-none').attr('href', data.no_watermark);
-                    }
+                        fetch(url)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                var blobURL = URL.createObjectURL(blob);
 
-                    if (data.watermark) {
-                        $('#downloadWithWatermark').removeClass('d-none').attr('href', data.watermark);
-                    }
+                                var a = document.createElement('a');
+                                a.href = blobURL;
+                                a.download = 'snapchat-video.mp4';  // Clean file name
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                                URL.revokeObjectURL(blobURL);
+                            })
+                            .catch(error => {
+                                console.error("Error fetching video:", error);
+                                alert("Failed to download video. Please try again.");
+                            })
+                            .finally(() => {
+                                // Reset button after download attempt
+                                $btn.html(originalText).prop('disabled', false);
+                            });
+                    });
 
-                    if (data.hd) {
-                        $('#downloadHD').removeClass('d-none').attr('href', data.hd);
-                    }
                 },
-                error: function (xhr) {
-                    $('#loading').addClass('d-none');
-                    $('#error-message').text('Something went wrong. Please try again.');
-                    console.error(xhr.responseText);
+                error: function () {
+                    $('#loading').remove();
+                    $('#videoPlayerDemo').remove();
+                    $('#error-message').text("Something went wrong. Please try again.");
                 }
             });
         });
+
+        $('#Clear').click(function () {
+            $('#url').val('');
+            $('#videoPlayerDemo').removeClass('d-none');
+            $('#ImgThmB').html('');
+            $('#error-message').text('');
+            $('#loading').remove();
+        });
     });
 </script>
-@endsection 
+
+
+<script>
+    $(document).ready(function () {
+            $.ajax({
+                url: '{{ route('in.views') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    view: 1,
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        });
+</script>
+
+@endsection

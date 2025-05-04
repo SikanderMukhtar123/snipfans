@@ -15,6 +15,11 @@
                         <h5 class="fw-bold">
                             {{ $list->tool_name }}
                         </h5>
+
+                        <div class="des flex-grow-1 text-muted" style="margin-top: 20px;">
+                            {!! $list->description !!}
+                        </div>
+
                     </a>
                 </div>
             </div>

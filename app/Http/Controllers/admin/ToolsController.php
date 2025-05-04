@@ -25,7 +25,8 @@ class ToolsController extends Controller
         $add = new tools();
         $add->tool_name = $req->tool_name;
         $add->slug = $req->slug;
-        $add->status = $req->status;
+        $add->status = $req->status;    
+        $add->description = $req->description;
         $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;
     
@@ -58,6 +59,7 @@ class ToolsController extends Controller
         $add = tools::findOrFail($id);
         $add->tool_name = $req->tool_name;
         $add->slug = $req->slug;
+        $add->description = $req->description;
         $add->status = $req->status;
         $add->monthly_limit = $req->monthly_limit;
         $add->order = $req->order;

@@ -7,7 +7,7 @@ use App\Http\Controllers\frontend\AuthController;
 use App\Http\Controllers\frontend\FrontendController;
 use App\Http\Controllers\frontend\InstagramController;
 use App\Http\Controllers\facebookVideoController;
-use App\Http\Controllers\frontend\YtDownlaoderController;
+use App\Http\Controllers\frontend\YoutubeVideoController;
 use App\Models\tools;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\TitktokController;
@@ -29,8 +29,8 @@ route::post('/tiktok-video-downloader/views', [TitktokController::class, 'views'
 
 
 // youtube
-route::get('/youtube-video-downloader', [YtDownlaoderController::class, 'index'])->name('youtube');
-route::post('/youtube-video-downloader', [YtDownlaoderController::class, 'download'])->name('youtube.req');
+route::get('/youtube-video-downloader', [YoutubeVideoController::class, 'index'])->name('youtube');
+route::post('/youtube-video-downloader', [YoutubeVideoController::class, 'video'])->name('youtube.req');
 // route::post('/youtube-video-downloader/views', [YtDownlaoderController::class, 'views'])->name('youtube.views');
 
 
